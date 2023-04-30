@@ -11,9 +11,25 @@ class ARunnerGameGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 
-public:
-	ARunnerGameGameMode();
+protected:
+
+	virtual void BeginPlay() override;
+	
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Game Mode")
+	int NumOfInitialFloors = 5;
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Game Mode")
+	void SpawnFirstFloors();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Game Mode")
+	void SpawnNextFloors();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Game Mode")
+	void StartGame();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Game Mode")
+	void RestartGame();
+
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Game Mode")
+	void GameOver();
 };
-
-
-

@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "InputActionValue.h"
 #include "RunnerGameCharacter.generated.h"
 
+class USpringArmComponent;
+class UCameraComponent;
 
 UCLASS(config=Game)
 class ARunnerGameCharacter : public ACharacter
@@ -15,52 +16,38 @@ class ARunnerGameCharacter : public ACharacter
 
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+	USpringArmComponent* CameraBoom;
 
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* FollowCamera;
-	
-	/** MappingContext */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputMappingContext* DefaultMappingContext;
-
-	/** Jump Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* JumpAction;
-
-	/** Move Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* MoveAction;
-
-	/** Look Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* LookAction;
+	UCameraComponent* FollowCamera;
 
 public:
+	
 	ARunnerGameCharacter();
-	
-
-protected:
-
-	/** Called for movement input */
-	void Move(const FInputActionValue& Value);
-
-	/** Called for looking input */
-	void Look(const FInputActionValue& Value);
-			
-
-protected:
-	// APawn interface
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
-	// To add mapping context
-	virtual void BeginPlay();
-
-public:
 	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	FORCEINLINE USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-};
+	FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	
+	// Function to find distance covered
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Character")
+	void FindDistance();
 
+protected:
+
+	// To Move Character forward
+	virtual void Tick(float DeltaSeconds) override;
+
+	// Function to Start Sprinting
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Character")
+	void StartSprinting();
+
+	// Function to Stop Sprinting
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Character")
+	void StopSprinting();
+
+	// Function to Teleport Character
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Character")
+	void Teleport();
+};

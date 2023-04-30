@@ -1,15 +1,13 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "RunnerGameGameMode.h"
-#include "RunnerGameCharacter.h"
-#include "UObject/ConstructorHelpers.h"
 
-ARunnerGameGameMode::ARunnerGameGameMode()
+void ARunnerGameGameMode::BeginPlay()
 {
-	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/ThirdPerson/Blueprints/BP_ThirdPersonCharacter"));
-	if (PlayerPawnBPClass.Class != NULL)
+	Super::BeginPlay();
+
+	for (int i = 0; i < NumOfInitialFloors; i++)
 	{
-		DefaultPawnClass = PlayerPawnBPClass.Class;
+		SpawnFirstFloors();
 	}
 }
