@@ -24,4 +24,8 @@ you will be sprinting for 5 seconds.
 
 ![Screenshot 2023-05-02 222331](https://user-images.githubusercontent.com/83279100/235733705-9426f557-1ed7-472e-91f8-07526c41de38.png)
 
+Gameplay Video
+
+[<img src="https://user-images.githubusercontent.com/83279100/235733632-aefcfd42-1ad6-4b60-a1e4-05f51008408f.png" width="50%">](https://youtu.be/viFZ4a9T4eo "View Video on Youtube")
+
 Start Runnin!!!
